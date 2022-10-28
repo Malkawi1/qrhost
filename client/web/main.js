@@ -6,8 +6,10 @@ const loginEl = document.getElementById("login-container");
 const logoutBtnEl = document.getElementById("logout-btn");
 
 const reconnectEl = document.getElementById("reconnect");
+const signup = document.getElementById("signup");
 
 const TOKEN_KEY = "SESSION_TOKEN";
+
 
 function setUserState(logged) {
     if (logged) {
@@ -77,13 +79,23 @@ function linkWS() {
         const step = data.data && data.data.step;
 
         if (step === 0) {
-            const anchor = document.createElement("a");
-            anchor.href = data.data.url;
-            anchor.setAttribute("target", "_blank");
-            anchor.setAttribute("rel", "noopener noreferrer");
-            anchor.textContent = "link";
-            anchor.style = "margin-left: 8px;";
-            messageEl.appendChild(anchor);
+            const login = document.createElement("a");
+            const signup = document.createElement("a");
+            login.href = data.data.url;
+            login.setAttribute("target", "_blank");
+            login.setAttribute("rel", "noopener noreferrer");
+            login.textContent = "login";
+            login.style = "margin-left: 8px;";
+
+
+            signup.href = `http://${location.hostname}:8003/signup/`;
+            signup.setAttribute("target", "_blank");
+            signup.setAttribute("rel", "noopener noreferrer");
+            signup.textContent = "signup";
+            signup.style = "margin-left: 8px;";
+
+            messageEl.appendChild(login);
+            messageEl.appendChild(signup);
 
             QRCode.toCanvas(qrcodeEl, data.data.url, function (error) {
                 if (error) console.error(error);

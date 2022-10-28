@@ -1,4 +1,4 @@
-const formEl = document.getElementById("login-form");
+const formEl = document.getElementById("reg-form");
 const msgEl = document.getElementById("message");
 
 function init() {
@@ -6,7 +6,7 @@ function init() {
         event.preventDefault();
         const formData = new FormData(event.target);
 
-        fetch(`http://${location.hostname}:8001/loginuser`, {
+        fetch(`http://${location.hostname}:8001/signup`, {
             method: "POST",
             credentials: "include",
             headers: {
@@ -17,17 +17,16 @@ function init() {
             .then((res) => {
                 console.info("[login] res: %o", res);
                 if (res.status === 200) {
-                    window.location.pathname = "/";
-                } else if(res.status === 401)   {
-                    msgEl.textContent = "password incorrect";
-                }else{
-                    alert(`${formData.get("username")} is not found`)
+                    alert("added succefully")
+                    setTimeout(window.location.replace(`http://${location.hostname}:8002/`), 3000);
+                    
+                } else{
+                    alert(`somthing went wrong `)
 
                 }
             })
             .catch((rea) => {
-                console.error("[login] error: %o", rea);
-                msgEl.textContent = "Login failed";
+                msgEl.textContent = "sign up failed";
             });
     };
 }

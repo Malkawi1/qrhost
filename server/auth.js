@@ -2,7 +2,9 @@ const express = require("express");
 const session = require("express-session");
 const cors = require("cors");
 const uuidV4 = require("uuid").v4;
+const {UsersDB} = require("./model/index")
 const jwt = require("jsonwebtoken");
+const e = require("express");
 
 const IP = require("../utils/ip")();
 
@@ -64,7 +66,7 @@ const authMiddleware = (req, res, next) => {
     return res.status(401).json({ msg: "Access denied" });
 };
 
-const authRouter = express.Router();
+const authRouter = express.Router(); 
 
 authRouter.use(express.json());
 authRouter.use((req, res, next) => {
@@ -86,13 +88,75 @@ authRouter.get("/user", authMiddleware, (req, res) => {
     }
     return res.sendStatus(404);
 });
+authRouter.post("/signup", async (req, res) => {
+    const body = req.body;
+    console.log("**********",body)
+    if (body.username) {
+        const user = await UsersDB.create(body)
+        console.log(user)
+        res.send(user)
+
+
+    } else {
+        return res.send("there is no user");
+    }
+});
+
+authRouter.get("/getalluser", async (req, res) => {
+
+ 
+        const users = await UsersDB.findAll()
+        res.send(users)  
+
+});
+authRouter.post("/loginuser", async (req, res) => {
+    const body = req.body;
+
+        if (body && body.username && body.password) {
+            console.log("********","user")
+
+            const { username, password } = body;
+            // const user = userCache.get(username);
+            const user2 = await UsersDB.findOne({where:{
+                username : body.username 
+            }})
+    
+            const token = genSessionToken(username);
+            if (user2) {
+                // TODO Password
+
+                if (user2.password === password) {
+                    userCache.set(username, { ...user2, token });
+                } else {
+                    return res.status(401).json("Password incorrect");
+                }
+            } else {
+                return res.status(404).send(" there is no user");
+
+            }
+    
+            req.session.userToken = token;
+            tokenCache.push(token);
+    
+            return res.json({ code: 0, data: { username, token }, msg: "Login successful" });
+        } else {
+            return res.json({msg: "error" });
+        }
+   
+
+
+});
+
+
 
 authRouter.post("/login", (req, res) => {
     const body = req.body;
 
+    console.log(userCache)
     if (body && body.username && body.password) {
         const { username, password } = body;
         const user = userCache.get(username);
+
 
         const token = genSessionToken(username);
         if (user) {
