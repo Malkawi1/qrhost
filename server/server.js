@@ -109,9 +109,9 @@ wss.on("connection", (ws, socket) => {
     });
 });
 function start() {
-    server.listen(process.env.PORT || 5000)
-   // server.listen(PORT, "0.0.0.0", () => {
-   //     console.info(`Listening on\n\thttp://localhost:${PORT}\n\thttp://${IP}:${PORT}`);
+  //  server.listen(process.env.PORT || 5000)
+    server.listen(process.env.PORT, "0.0.0.0", () => {
+       console.info(`Listening on\n\thttp://localhost:${PORT}\n\thttp://${IP}:${PORT}`);
     });
 }
 
