@@ -2,7 +2,7 @@ const express = require("express");
 const session = require("express-session");
 const cors = require("cors");
 const uuidV4 = require("uuid").v4;
-const {UsersDB} = require("./model/index")
+const {UsersDB, DataDB} = require("./model/index")
 const jwt = require("jsonwebtoken");
 const e = require("express");
 
@@ -84,7 +84,7 @@ authRouter.use((req, res, next) => {
 
 authRouter.get("/user", authMiddleware, (req, res) => {
     if (req.session.username) {
-        return res.json({ code: 0, data: { username: req.session.username } });
+        return res.json({ code: 0, data: { username: req.session.username , id: req.session.id } });
     }
     return res.sendStatus(404);
 });
@@ -92,9 +92,13 @@ authRouter.post("/signup", async (req, res) => {
     const body = req.body;
     console.log("**********",body)
     if (body.username) {
-        const user = await UsersDB.create(body)
-        console.log(user)
-        res.send(user)
+        try {
+            const user = await UsersDB.create(body)
+            console.log(user)
+            res.send(user)
+        } catch (error) {
+            res.send("the user is duplicated")
+        }
 
 
     } else {
@@ -109,11 +113,47 @@ authRouter.get("/getalluser", async (req, res) => {
         res.send(users)  
 
 });
+
+authRouter.get("/getalldata", async (req, res) => {
+
+ 
+    const data = await DataDB.findAll()
+    res.send(data)  
+
+});
+
+
+authRouter.get("/getalldata/id", async (req, res) => {
+
+ console.log(req.params.id)
+    const data = await DataDB.findAll({where:{
+        id
+    }})
+    res.send(data)  
+
+});
+
+authRouter.post("/setdata", async (req, res) => {
+    const body = req.body;
+   
+    if (body.name) {
+        try {
+            const data = await DataDB.create(body)
+            res.send(data)
+        } catch (error) {
+            res.send("add Forien ")      
+        }
+
+    } else {
+        return res.send("there is no user");
+    }
+});
+
+
 authRouter.post("/loginuser", async (req, res) => {
     const body = req.body;
 
         if (body && body.username && body.password) {
-            console.log("********","user")
 
             const { username, password } = body;
             // const user = userCache.get(username);

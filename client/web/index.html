@@ -10,7 +10,7 @@
   <script src="https://www.unpkg.com/qrcode@1.4.4/build/qrcode.min.js"></script>
 </head>
 
-<body>
+<body id="body">
   
   <h1 style="color:red;">QTouch</h1>
   <div class="container">
@@ -23,6 +23,20 @@
       </p>
       <button id="logout-btn">logout</button>
    
+      <div id="formdiv">
+        <form action="#" method="post" name="form_name" id="form_id" class="form_class" >
+          <label>Name :</label>
+          <input type="text" name="name" id="name" placeholder="Name" />
+          <label>Link :</label>
+          <input type="text" name="email" id="email" placeholder="Link" />
+          <input type="button" name="submit_id" id="btn_id" value="Add" onclick="submit_by_id()"/>
+          </form>
+      </div>
+
+      <div id="tablediv">
+
+      </div>
+     
                       
     <div id="login-container" class="none">
       <div>
@@ -33,6 +47,7 @@
       <button id="disconnect">disconnect</button>
       <button id="reconnect">reconnect</button>
     </div>
+
   </div>
   <script src="./main.js"></script>
 </body>

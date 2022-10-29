@@ -2,6 +2,7 @@
 const { Sequelize , DataTypes} = require('sequelize');
 
 const Users = require('./users.model')
+const data = require('./data.model')
 
 var config
 
@@ -29,10 +30,16 @@ const db = new Sequelize(
   )
 
   const UsersDB = Users(db, DataTypes);
+  const DataDB = data(db, DataTypes);
+
+
+  UsersDB.hasMany(DataDB);
+  DataDB.belongsTo(UsersDB);
 
 
 module.exports ={
     db : db,
-    UsersDB
+    UsersDB,
+    DataDB
    
 }

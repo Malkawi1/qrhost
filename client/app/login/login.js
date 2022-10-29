@@ -17,7 +17,10 @@ function init() {
             .then((res) => {
                 console.info("[login] res: %o", res);
                 if (res.status === 200) {
-                    window.location.pathname = "/";
+                    // console.log("**********")
+                    //  localStorage.setItem('id', 'Tom');
+                    console.log(res.data)
+                    window.location.pathname = "/";  
                 } else if(res.status === 401)   {
                     msgEl.textContent = "password incorrect";
                 }else{

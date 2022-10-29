@@ -9,7 +9,7 @@ https://user-images.githubusercontent.com/28584349/131832159-eb336b17-3747-4b25-
 yarn dev:ser
 
 # client
-yarn dev:app
+yarn dev:app 
 ```
 
 load http://[LOCAL_IP]:8002 in a browser to see the output.

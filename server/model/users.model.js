@@ -1,7 +1,8 @@
-const UsersModel = (sequelize,DataTypes)=>sequelize.define('authuser', {
+const UsersModel = (sequelize,DataTypes)=>sequelize.define('authusers', {
  
     username: {
       type: DataTypes.STRING,
+      primaryKey: true,
       allowNull: false
     },
     password: {
