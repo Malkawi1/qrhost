@@ -16,7 +16,7 @@ app.use(auth.sessionRequestHandler);
 app.use(auth.authRouter);
 app.use(auth.authMiddleware);
 
-const PORT = 8001;
+const PORT = process.env.PORT || 8001;
 const IP = require("../utils/ip")();
 
 // memory cache
