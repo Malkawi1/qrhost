@@ -8,8 +8,18 @@
     "dev:app": "nodemon client/index.js"
   },
   "scripts": {
-   "start": "node index.js"
-},
+"dev": "react-scripts start",
+"start": "serve -s build",
+"build": "react-scripts build",
+"test": "react-scripts test --env=jsdom",
+"eject": "react-scripts eject",
+"heroku-postbuild": "npm run build"
+}
+  
+  //"scripts": {
+ //  "start": "node index.js"
+//}
+,
   "author": "wangcch",
   "license": "MIT",
   "dependencies": {
