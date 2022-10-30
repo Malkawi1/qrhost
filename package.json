@@ -3,15 +3,11 @@
   "version": "1.0.0",
   "description": "websocket for scanning QRcode login",
   "main": "index.js",
+  
   "scripts": {
     "dev:ser": "nodemon server/index.js",
     "dev:app": "nodemon client/index.js"
   },
- 
-  
-  "scripts": {
-  "start": "node index.js"
-},
   
   "author": "wangcch",
   "license": "MIT",
