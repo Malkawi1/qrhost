@@ -4,7 +4,7 @@
   "description": "websocket for scanning QRcode login",
   "main": "index.js",
   "engines":{
-    "node":"8.5.5"
+       "node": "6.11.1"
   },
   
   "scripts": {
