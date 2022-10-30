@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "websocket for scanning QRcode login",
   "main": "index.js",
+  "engines": {
+   "node": "12.11.1"
+   },
   "scripts": {
     "dev:ser": "nodemon server/index.js",
     "dev:app": "nodemon client/index.js"
