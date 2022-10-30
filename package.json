@@ -7,6 +7,9 @@
     "dev:ser": "nodemon server/index.js",
     "dev:app": "nodemon client/index.js"
   },
+  "scripts": {
+   "start": "node index.js"
+},
   "author": "wangcch",
   "license": "MIT",
   "dependencies": {
