@@ -5,8 +5,10 @@ const path = require("path");
 
 const IP = require("../utils/ip")();
 
-const PORT_WEB = 8002;
-const PORT_APP = 8003;
+const PORT_WEB =  process.env.PORT || 8002;
+const PORT_APP = process.env.PORT || 8003;
+
+
 
 const web = express();
 web.use(express.static(path.join(__dirname, "/web")));
